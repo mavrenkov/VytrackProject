@@ -21,9 +21,10 @@ public abstract class BasePage {
     protected String globalSubMenuXpath  = "//span[contains(text(),'%s')][@class='title title-level-2']";
 
     public void navigationGlobal(String globalMenu, String globalSubMenu){
-        wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
+        //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
+        BrowserUtils.wait(2);
         BrowserUtils.clickOnElement( driver.findElement(By.xpath(String.format(globalMenuXpath,globalMenu))));
-        wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
+        //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         BrowserUtils.clickOnElement( driver.findElement(By.xpath(String.format(globalSubMenuXpath,globalSubMenu))));
 
     }

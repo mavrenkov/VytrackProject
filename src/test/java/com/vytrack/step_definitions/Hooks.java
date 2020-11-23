@@ -1,5 +1,6 @@
 package com.vytrack.step_definitions;
 
+import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -18,6 +19,7 @@ public class Hooks {
 
     @After
     public void tearDown(){
+        BrowserUtils.wait(2);
         Driver.closeDriver();
         System.out.println("End of the test execution!");
     }

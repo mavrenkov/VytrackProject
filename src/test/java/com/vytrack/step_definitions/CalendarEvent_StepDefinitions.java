@@ -29,8 +29,19 @@ public class CalendarEvent_StepDefinitions {
             calendarEvent.threeDotButtonsConfirmation(string, string2, string3);
     }
 
+    @When("user clicks on {string}")
+    public void user_clicks_on(String string) {
+        calendarEvent.gridSettingsClick(string);
+    }
 
+    @When("unchecks all columns except {string}")
+    public void unchecks_all_columns_except(String string) {
+        calendarEvent.uncheckAllColumnsExceptTitle(string);
+    }
+    @Then("{string} column is displayed")
+    public void column_is_displayed(String string) {
 
+    }
 
 
 
