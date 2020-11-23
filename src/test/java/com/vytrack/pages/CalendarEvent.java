@@ -19,15 +19,17 @@ public class CalendarEvent extends BasePage {
     private WebElement updateFilterButton;
     @FindBy(xpath = "//a[.='...']")
     private WebElement threeDotHover;
-    @FindBy(xpath = "//tr[@class='renderable']/td/label")
+    @FindBy(xpath = "//td[@class ='title-cell']/label")
     private List<WebElement> columnsTitlesGridSettings;
     @FindBy(xpath = "//tbody[@class='ui-sortable']//input")
     private List<WebElement> checkBoxGridSettings;
+
 
     protected String gridButtonsXpath = "(//a[@title='%s'])[1]";
     protected String filtersOptionsXpath = "//div[contains(text(),'%s')]";
     protected String threeDotOptionsXpath = "//ul[@class='nav nav-pills icons-holder launchers-list']//a[@title='%s']";
     protected String rowFilterSettings = "//label[.='%s']/../following-sibling::td[@class='visibility-cell']/input";
+    protected String calEventsGridFields = "//span[.='%s']";
 
 
     public void gridButtonsClick(String buttonName){
@@ -55,22 +57,24 @@ public class CalendarEvent extends BasePage {
 
     public void gridSettingsClick(String gridSettingsTitle){
         BrowserUtils.wait(3);
+        //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         BrowserUtils.clickOnElement(driver.findElement(By.xpath((String.format(gridButtonsXpath, gridSettingsTitle)))));
     }
 
     public void uncheckAllColumnsExceptTitle(String titleOption){
-
+        BrowserUtils.wait(3);
+       // wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         for(int i = 0; i <=checkBoxGridSettings.size()-1; i++){
-            if(!columnsTitlesGridSettings.get(i).getText().equalsIgnoreCase(titleOption)){
+            if(columnsTitlesGridSettings.get(i).getText().equalsIgnoreCase(titleOption)){
+                continue;
+            }else{
 
-                Select select = new Select(checkBoxGridSettings.get(i));
-                select.selectByIndex(i);
-
+                checkBoxGridSettings.get(i).click();
             }
-
-
         }
-
+    }
+    public boolean titleAssertion(String title){
+        return driver.findElement(By.xpath(String.format(calEventsGridFields,title))).isDisplayed();
     }
 
 
