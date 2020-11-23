@@ -10,3 +10,10 @@ Feature: Calendar Events test cases
   Scenario: TC1 three dot check
     When user hovers on three dots for "Testers meeting"
     Then "View", "Edit" and "Delete" options are available
+
+
+  @TC2
+  Scenario: TC2 verify that Title column is displayed
+    When user clicks on "Grid Settings"
+    And unchecks all columns except "Title"
+    Then "Title" column is displayed
