@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class BasePage {
 
     @FindBy(css = "loader-mask")
-    private List<WebElement> mask;
+    protected List<WebElement> mask;
 
     protected String globalMenuXpath ="//span[contains(text(),'%s')][@class='title title-level-1']";
     protected String globalSubMenuXpath  = "//span[contains(text(),'%s')][@class='title title-level-2']";
@@ -26,6 +26,7 @@ public abstract class BasePage {
         BrowserUtils.clickOnElement( driver.findElement(By.xpath(String.format(globalMenuXpath,globalMenu))));
         //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         BrowserUtils.clickOnElement( driver.findElement(By.xpath(String.format(globalSubMenuXpath,globalSubMenu))));
+
 
     }
 
@@ -38,6 +39,7 @@ public abstract class BasePage {
     public BasePage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
+
 
 
 }

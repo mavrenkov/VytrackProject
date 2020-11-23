@@ -4,6 +4,7 @@ import com.vytrack.pages.CalendarEvent;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class CalendarEvent_StepDefinitions {
 
@@ -40,7 +41,7 @@ public class CalendarEvent_StepDefinitions {
     }
     @Then("{string} column is displayed")
     public void column_is_displayed(String string) {
-
+        Assert.assertTrue(calendarEvent.titleAssertion(string));
     }
 
 
