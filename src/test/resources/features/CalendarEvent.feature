@@ -17,3 +17,20 @@ Feature: Calendar Events test cases
     When user clicks on "Grid Settings"
     And unchecks all columns except "Title"
     Then "Title" column is displayed
+
+
+  @TC3
+  Scenario: TC3 verify that options "Save And Close", "Save And New"
+  and "Save" options are available
+    When user clicks on Create Calendar Event button
+    And expand Save and close menu
+    Then following option are available
+        |Save And Close|
+        |Save And New  |
+        |Save          |
+
+  @TC4
+  Scenario: TC4 verify Cancel buttont in Create calendar Event window
+    When user clicks on Create Calendar Event button
+    And clicks on Cancel button
+    Then All Calendar Event page subtitle is displayed

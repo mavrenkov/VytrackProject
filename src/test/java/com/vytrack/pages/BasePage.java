@@ -27,6 +27,7 @@ public abstract class BasePage {
         //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         BrowserUtils.clickOnElement( driver.findElement(By.xpath(String.format(globalSubMenuXpath,globalSubMenu))));
 
+        BrowserUtils.wait(1);
 
     }
 
