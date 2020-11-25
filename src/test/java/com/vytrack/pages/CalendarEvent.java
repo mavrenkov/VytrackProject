@@ -3,12 +3,14 @@ package com.vytrack.pages;
 import com.vytrack.utilities.BrowserUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarEvent extends BasePage {
@@ -23,15 +25,27 @@ public class CalendarEvent extends BasePage {
     private List<WebElement> columnsTitlesGridSettings;
     @FindBy(xpath = "//tbody[@class='ui-sortable']//input")
     private List<WebElement> checkBoxGridSettings;
+    @FindBy (xpath = "//a[@title='Create Calendar event']")
+    private WebElement createCalendarEventButton;
+    @FindBy (xpath = "//div[@class='btn-group pull-right']/a")
+    private WebElement saveAndCloseDropdown;
+    @FindBy (xpath = "//a[@title='Cancel']")
+    private WebElement cancelButton;
+    @FindBy (xpath = "//h1[@class='oro-subtitle']")
+    private WebElement allCalendarEventsPageSubtitle;
 
+
+    @FindBy (xpath = "//li/button[contains(text(), 'Save')]")
+    private List<WebElement> saveAndCloseDropdownOptions;
 
     protected String gridButtonsXpath = "(//a[@title='%s'])[1]";
     protected String filtersOptionsXpath = "//div[contains(text(),'%s')]";
     protected String threeDotOptionsXpath = "//ul[@class='nav nav-pills icons-holder launchers-list']//a[@title='%s']";
-    protected String rowFilterSettings = "//label[.='%s']/../following-sibling::td[@class='visibility-cell']/input";
     protected String calEventsGridFields = "//span[.='%s']";
+    //protected String saveAndCloseDropdownOptions = "//li/button[contains(text(), '%s')]";
+    //protected String saveAndCloseDropdownOptions = "(//li/button[contains(text(), 'Save')])[%s]";
 
-
+    //TC1
     public void gridButtonsClick(String buttonName){
         BrowserUtils.clickOnElement(driver.findElement(By.xpath(String.format(gridButtonsXpath,buttonName))));
 
@@ -55,12 +69,12 @@ public class CalendarEvent extends BasePage {
         return viewIsVisible&&editIsVisible&&deleteIsVisible;
     }
 
+    //TC2
     public void gridSettingsClick(String gridSettingsTitle){
         BrowserUtils.wait(3);
         //wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
         BrowserUtils.clickOnElement(driver.findElement(By.xpath((String.format(gridButtonsXpath, gridSettingsTitle)))));
     }
-
     public void uncheckAllColumnsExceptTitle(String titleOption){
         BrowserUtils.wait(3);
        // wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
@@ -76,6 +90,28 @@ public class CalendarEvent extends BasePage {
     public boolean titleAssertion(String title){
         return driver.findElement(By.xpath(String.format(calEventsGridFields,title))).isDisplayed();
     }
+
+    //TC3
+    public List<WebElement> getSaveAndCloseDropdownOptions() {
+        return saveAndCloseDropdownOptions;
+    }
+    public void createCalendarEventButtonClick(){
+        wait.until(ExpectedConditions.visibilityOf(createCalendarEventButton));
+        BrowserUtils.clickOnElement(createCalendarEventButton);
+    }
+    public void saveAndCloseDropdownClick(){
+        BrowserUtils.wait(2);
+        BrowserUtils.clickOnElement(saveAndCloseDropdown);
+    }
+
+    //TC4
+    public void cancelButtonClick(){
+        BrowserUtils.clickOnElement(cancelButton);
+    }
+    public boolean allCalendarEventsPageSubtitleAssertion(){
+        return allCalendarEventsPageSubtitle.isDisplayed();
+    }
+
 
 
 
