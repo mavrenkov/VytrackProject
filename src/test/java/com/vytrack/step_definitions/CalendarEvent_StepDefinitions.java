@@ -78,4 +78,8 @@ public class CalendarEvent_StepDefinitions {
         Assert.assertTrue(calendarEvent.allCalendarEventsPageSubtitleAssertion());
     }
 
+    @Then("difference between end and start time is exactly one hour")
+    public void differenceBetweenEndAndStartTimeIsExactlyHour() {
+        Assert.assertTrue(calendarEvent.differenceBetweenStartEndTime());
+    }
 }
