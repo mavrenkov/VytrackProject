@@ -1,6 +1,7 @@
 package com.vytrack.pages;
 
 import com.vytrack.utilities.BrowserUtils;
+import io.cucumber.java.ro.Si;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -10,7 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import javax.swing.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CalendarEvent extends BasePage {
@@ -33,7 +38,10 @@ public class CalendarEvent extends BasePage {
     private WebElement cancelButton;
     @FindBy (xpath = "//h1[@class='oro-subtitle']")
     private WebElement allCalendarEventsPageSubtitle;
-
+    @FindBy (xpath = "(//input[@type='datetime'])[1]")
+    private WebElement startRow;
+    @FindBy (xpath = "(//input[@type='datetime'])[2]")
+    private WebElement endRow;
 
     @FindBy (xpath = "//li/button[contains(text(), 'Save')]")
     private List<WebElement> saveAndCloseDropdownOptions;
@@ -112,7 +120,34 @@ public class CalendarEvent extends BasePage {
         return allCalendarEventsPageSubtitle.isDisplayed();
     }
 
+    //TC5
 
+    public boolean differenceBetweenStartEndTime(){
 
+        String startDateAndTime = startRow.getAttribute("value").replaceAll("T", " ").replaceAll("Z", "");
+        //System.out.println(startDateAndTime);
+        String endDateAndTime = endRow.getAttribute("value").replaceAll("T", " ").replaceAll("Z", "");
+        //System.out.println(endDateAndTime);
 
+        int timeZone = -8;
+        int startHour = getHourFromTheString(startDateAndTime) + timeZone;
+        int endHour = getHourFromTheString(endDateAndTime) + timeZone;
+        //System.out.println("Current start hour = " + startHour + " and end hour = " + endHour);
+        int differenceBetweenEndStartHour = endHour - startHour;
+
+        return differenceBetweenEndStartHour == 1;
+    }
+
+    public int getHourFromTheString(String string){
+
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date current = null;
+        try {
+            current = date.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int hour = current.getHours();
+        return hour;
+    }
 }
