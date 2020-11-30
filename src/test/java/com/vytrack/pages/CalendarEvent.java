@@ -42,16 +42,23 @@ public class CalendarEvent extends BasePage {
     private WebElement startRow;
     @FindBy (xpath = "(//input[@type='datetime'])[2]")
     private WebElement endRow;
-
     @FindBy (xpath = "//li/button[contains(text(), 'Save')]")
     private List<WebElement> saveAndCloseDropdownOptions;
+    @FindBy (xpath = " (//input[@placeholder='time'])[1]")
+    private WebElement startTimeDropdown;
+    @FindBy (xpath = " (//input[@placeholder='time'])[2]")
+    private WebElement endTimeDropdown;
+    @FindBy (xpath = "(//li[@class='ui-timepicker-pm ui-timepicker-selected'])[2]")
+    private WebElement selectedEndTime;
+
+
 
     protected String gridButtonsXpath = "(//a[@title='%s'])[1]";
     protected String filtersOptionsXpath = "//div[contains(text(),'%s')]";
     protected String threeDotOptionsXpath = "//ul[@class='nav nav-pills icons-holder launchers-list']//a[@title='%s']";
     protected String calEventsGridFields = "//span[.='%s']";
-    //protected String saveAndCloseDropdownOptions = "//li/button[contains(text(), '%s')]";
-    //protected String saveAndCloseDropdownOptions = "(//li/button[contains(text(), 'Save')])[%s]";
+    protected String startTimeOption = "(//li[. = '%s'])[1]";
+
 
     //TC1
     public void gridButtonsClick(String buttonName){
@@ -150,4 +157,19 @@ public class CalendarEvent extends BasePage {
         int hour = current.getHours();
         return hour;
     }
+
+    //TC6
+
+    public void chooseStartTime(String time){
+        BrowserUtils.clickOnElement(startTimeDropdown);
+        BrowserUtils.clickOnElement(driver.findElement(By.xpath(String.format(startTimeOption, time))));
+    }
+
+    public boolean endTimeAssertion(String string){
+
+        BrowserUtils.clickOnElement(endTimeDropdown);
+        String chosenEndTime = selectedEndTime.getText();
+        return chosenEndTime.equalsIgnoreCase(string);
+    }
+
 }

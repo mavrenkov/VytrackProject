@@ -30,12 +30,18 @@ Feature: Calendar Events test cases
         |Save          |
 
   @TC4
-  Scenario: TC4 verify Cancel buttont in Create calendar Event window
+  Scenario: TC4 verify Cancel button in Create calendar Event window
     When user clicks on Create Calendar Event button
     And clicks on Cancel button
     Then All Calendar Event page subtitle is displayed
 
   @TC5
-  Scenario: TC5 Verify that difference between end and start time is exactly 1 hour in Create Calendar event
+  Scenario: TC5 verify that difference between end and start time is exactly 1 hour in Create Calendar event
     When user clicks on Create Calendar Event button
     Then difference between end and start time is exactly one hour
+
+  @TC6
+  Scenario: TC6 verify that end time equals to 10:00pm when 9:00pm start time is selected
+    When user clicks on Create Calendar Event button
+    And user select "9:00 PM" as a start time
+    Then end time is equals to "10:00 PM"

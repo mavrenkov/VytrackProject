@@ -2,6 +2,7 @@ package com.vytrack.step_definitions;
 
 import com.vytrack.pages.CalendarEvent;
 import com.vytrack.utilities.BrowserUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -81,5 +82,15 @@ public class CalendarEvent_StepDefinitions {
     @Then("difference between end and start time is exactly one hour")
     public void differenceBetweenEndAndStartTimeIsExactlyHour() {
         Assert.assertTrue(calendarEvent.differenceBetweenStartEndTime());
+    }
+
+    @And("user select {string} as a start time")
+    public void userSelectAsAStartTime(String string) {
+        calendarEvent.chooseStartTime(string);
+    }
+
+    @Then("end time is equals to {string}")
+    public void endTimeIsEqualsTo(String string) {
+        Assert.assertTrue(calendarEvent.endTimeAssertion(string));
     }
 }
