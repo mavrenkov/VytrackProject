@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 
 import javax.swing.*;
 import java.text.DateFormat;
@@ -50,6 +51,12 @@ public class CalendarEvent extends BasePage {
     private WebElement endTimeDropdown;
     @FindBy (xpath = "(//li[@class='ui-timepicker-pm ui-timepicker-selected'])[2]")
     private WebElement selectedEndTime;
+    @FindBy (xpath = "//input[@name='oro_calendar_event_form[allDay]']")
+    private WebElement allDayEventCheckbox;
+    @FindBy (xpath = "(//input[@placeholder='Choose a date'])[1]")
+    private WebElement startDateInput;
+    @FindBy (xpath = "(//input[@placeholder='Choose a date'])[2]")
+    private WebElement endDateInput;
 
 
 
@@ -170,6 +177,21 @@ public class CalendarEvent extends BasePage {
         BrowserUtils.clickOnElement(endTimeDropdown);
         String chosenEndTime = selectedEndTime.getText();
         return chosenEndTime.equalsIgnoreCase(string);
+    }
+
+    //TC7
+    public void allDayEventCheckboxClick(){
+        BrowserUtils.clickOnElement(allDayEventCheckbox);
+    }
+    public boolean allDayEventCheckboxAssertion(){
+        return allDayEventCheckbox.isSelected();
+    }
+    public boolean timeInputBoxesAssertion(){
+        wait.until(ExpectedConditions.invisibilityOfAllElements(startTimeDropdown, endTimeDropdown));
+        return startTimeDropdown.isDisplayed() || endTimeDropdown.isDisplayed();
+    }
+    public boolean dateInputBoxesAssertion(){
+        return startDateInput.isDisplayed() && endDateInput.isDisplayed();
     }
 
 }

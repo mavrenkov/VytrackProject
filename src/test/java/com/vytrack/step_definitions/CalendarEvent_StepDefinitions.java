@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.util.List;
 
@@ -73,24 +74,45 @@ public class CalendarEvent_StepDefinitions {
     public void clicks_on_cancel_button() {
         calendarEvent.cancelButtonClick();
     }
-
     @Then("All Calendar Event page subtitle is displayed")
     public void all_calendar_event_page_subtitle_is_displayed() {
         Assert.assertTrue(calendarEvent.allCalendarEventsPageSubtitleAssertion());
     }
 
+    //TC5
     @Then("difference between end and start time is exactly one hour")
     public void differenceBetweenEndAndStartTimeIsExactlyHour() {
         Assert.assertTrue(calendarEvent.differenceBetweenStartEndTime());
     }
 
+    //TC6
     @And("user select {string} as a start time")
     public void userSelectAsAStartTime(String string) {
         calendarEvent.chooseStartTime(string);
     }
-
     @Then("end time is equals to {string}")
     public void endTimeIsEqualsTo(String string) {
         Assert.assertTrue(calendarEvent.endTimeAssertion(string));
     }
+
+    //TC7
+    @When("select All-Day Event checkbox")
+    public void select_all_day_event_checkbox() {
+        calendarEvent.allDayEventCheckboxClick();
+    }
+
+    @Then("All-Day Event checkbox is selected")
+    public void all_day_event_checkbox_is_selected() {
+        Assert.assertTrue(calendarEvent.allDayEventCheckboxAssertion());
+    }
+    @Then("start and end time input boxes are not displayed")
+    public void start_and_end_time_input_boxes_are_not_displayed() {
+        Assert.assertFalse(calendarEvent.timeInputBoxesAssertion());
+    }
+    @Then("start and end date input boxes are displayed")
+    public void start_and_end_date_input_boxes_are_displayed() {
+        Assert.assertTrue(calendarEvent.dateInputBoxesAssertion());
+    }
+
+
 }
