@@ -45,3 +45,11 @@ Feature: Calendar Events test cases
     When user clicks on Create Calendar Event button
     And user select "9:00 PM" as a start time
     Then end time is equals to "10:00 PM"
+
+  @TC7
+  Scenario: TC7 All-Day Event Checkbox verification
+    When user clicks on Create Calendar Event button
+    And  select All-Day Event checkbox
+    Then All-Day Event checkbox is selected
+    Then start and end time input boxes are not displayed
+    Then start and end date input boxes are displayed
