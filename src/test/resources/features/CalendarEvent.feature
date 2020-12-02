@@ -53,3 +53,15 @@ Feature: Calendar Events test cases
     Then All-Day Event checkbox is selected
     Then start and end time input boxes are not displayed
     Then start and end date input boxes are displayed
+
+
+  @TC8
+  Scenario: TC8 Repeat checkbox and Repeats dropdown verification
+    When user clicks on Create Calendar Event button
+    And select Repeat checkbox
+    Then Repeat checkbox is selected
+    Then "Daily" option is selected by default and in Repeats dropdown
+    Then other following options are available in Repeats dropdown
+        | Weekly |
+        | Monthly |
+        | Yearly |

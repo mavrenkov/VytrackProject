@@ -57,6 +57,10 @@ public class CalendarEvent extends BasePage {
     private WebElement startDateInput;
     @FindBy (xpath = "(//input[@placeholder='Choose a date'])[2]")
     private WebElement endDateInput;
+    @FindBy(xpath = "//input[@data-name='recurrence-repeat']")
+    private WebElement repeatCheckbox;
+    @FindBy(xpath = "//select[@data-name='recurrence-repeats']")
+    private WebElement repeatsDropdown;
 
 
 
@@ -192,6 +196,35 @@ public class CalendarEvent extends BasePage {
     }
     public boolean dateInputBoxesAssertion(){
         return startDateInput.isDisplayed() && endDateInput.isDisplayed();
+    }
+
+    //TC8
+    public void repeatCheckboxClick(){
+        BrowserUtils.clickOnElement(repeatCheckbox);
+    }
+    public WebElement getRepeatCheckbox(){
+        return repeatCheckbox;
+    }
+    public boolean repeatsDefaultOptionAssertion(String string){
+        Select repeats = new Select(repeatsDropdown);
+        String defaultOption = repeats.getFirstSelectedOption().getText();
+        return defaultOption.equalsIgnoreCase(string);
+    }
+
+    public boolean repeatsDropdownAssertion(List<String> options){
+
+        Select repeats = new Select(repeatsDropdown);
+
+        List<WebElement> actualOptions = repeats.getOptions();
+        List<String> actualStringOptions = new ArrayList<String>();
+        for (WebElement each : actualOptions){
+            if(!each.getText().equalsIgnoreCase("Daily")){
+                String currentOptionText = each.getText();
+                actualStringOptions.add(currentOptionText);
+            }
+        }
+
+        return actualStringOptions.equals(options);
     }
 
 }
