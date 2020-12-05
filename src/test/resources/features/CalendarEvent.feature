@@ -65,3 +65,21 @@ Feature: Calendar Events test cases
         | Weekly |
         | Monthly |
         | Yearly |
+
+  @TC9
+  Scenario: TC9 Summary message in repeats verification
+    When user clicks on Create Calendar Event button
+    And select Repeat checkbox
+    Then Repeat checkbox is selected
+    Then Repeat Every radio button is selected
+    Then Never radio button is selected as an Ends option
+    Then following summary message is displayed: "Summary: Daily every 1 day"
+
+  @TC10
+  Scenario: TC10 Summary message verification when After 10 occurrences selected
+    When user clicks on Create Calendar Event button
+    And select Repeat checkbox
+    And select After 10 occurrences as an Ends option
+    Then following summary message is displayed: "Summary: Daily every 1 day, end after 10 occurrences"
+
+

@@ -124,14 +124,33 @@ public class CalendarEvent_StepDefinitions {
     public void repeat_checkbox_is_selected() {
         Assert.assertTrue(calendarEvent.getRepeatCheckbox().isSelected());
     }
-
     @Then("{string} option is selected by default and in Repeats dropdown")
     public void optionIsSelectedByDefaultAndInRepeatsDropdown(String str) {
         calendarEvent.repeatsDefaultOptionAssertion(str);
     }
-
     @Then("other following options are available in Repeats dropdown")
     public void otherFollowingOptionsAreAvailableInRepeatsDropdown(List<String> options) {
         calendarEvent.repeatsDropdownAssertion(options);
+    }
+
+    //TC9
+    @Then("Repeat Every radio button is selected")
+    public void repeatEveryRadioButtonIsSelected() {
+        calendarEvent.getRepeatEveryRadioButton().isSelected();
+    }
+    @Then("Never radio button is selected as an Ends option")
+    public void neverRadioButtonIsSelectedAsAnEndsOption() {
+        calendarEvent.getEndsNeverRadioButton().isSelected();
+        
+    }
+    @Then("following summary message is displayed: {string}")
+    public void followingSummaryMessageIsDisplayed(String string) {
+        Assert.assertTrue(calendarEvent.summaryMessageAssertion(string));
+    }
+
+    //TC10
+    @And("select After {int} occurrences as an Ends option")
+    public void selectAfterOccurrencesAsAnEndsOption(int numberOfOccurrences) {
+        calendarEvent.setOccurrences(numberOfOccurrences);
     }
 }

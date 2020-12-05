@@ -3,6 +3,7 @@ package com.vytrack.pages;
 import com.vytrack.utilities.BrowserUtils;
 import io.cucumber.java.ro.Si;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -61,6 +62,18 @@ public class CalendarEvent extends BasePage {
     private WebElement repeatCheckbox;
     @FindBy(xpath = "//select[@data-name='recurrence-repeats']")
     private WebElement repeatsDropdown;
+    @FindBy(xpath = "//label[@class='fields-row']/input[@checked='checked']")
+    private WebElement repeatEveryRadioButton;
+    @FindBy(xpath = "//span[text() = 'Never']/preceding-sibling::input[@type='radio']")
+    private WebElement endsNeverRadioButton;
+    @FindBy(xpath = "//span[text() = 'After']/preceding-sibling::input[@type='radio']")
+    private WebElement endsAfterRadioButton;
+    @FindBy(xpath = "//span[text() = 'After']/following-sibling::input[@type='text']")
+    private WebElement occurrencesInputField;
+    @FindBy(xpath = "//div[@class='control-group recurrence-summary alert-info']/div/label")
+    private WebElement summary;
+    @FindBy(xpath = "//div[@data-name='recurrence-summary']/div/span")
+    private List<WebElement> summaryMessage;
 
 
 
@@ -227,4 +240,35 @@ public class CalendarEvent extends BasePage {
         return actualStringOptions.equals(options);
     }
 
+    //TC9
+    public WebElement getRepeatEveryRadioButton() {
+        return repeatEveryRadioButton;
+    }
+
+    public WebElement getEndsNeverRadioButton() {
+        return endsNeverRadioButton;
+    }
+    public boolean summaryMessageAssertion(String string){
+
+        String actualSummaryMessage = summary.getText() + " ";
+
+        for(WebElement each : summaryMessage){
+            actualSummaryMessage += each.getText();
+        }
+        return actualSummaryMessage.equals(string) && summaryMessageIsDisplayed();
+    }
+    public boolean summaryMessageIsDisplayed(){
+        boolean check = summary.isDisplayed();
+        for(WebElement each : summaryMessage){
+            check = check && each.isDisplayed();
+        }
+        return check;
+    }
+
+    //TC10
+    public void setOccurrences(int occurrences){
+        BrowserUtils.clickOnElement(endsAfterRadioButton);
+        String occurrencesString = "" + occurrences;
+        BrowserUtils.enterTextAndClickEnter(occurrencesInputField, occurrencesString);
+    }
 }
