@@ -2,6 +2,7 @@ package com.vytrack.utilities;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -91,6 +92,13 @@ public class BrowserUtils {
         element.clear();
         element.sendKeys(text);
     }
+
+    public static void enterTextAndClickEnter(WebElement element, String text){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text + Keys.ENTER);
+    }
+
     /**
      * static ExpectedCondition < WebElement > visibilityOfElementLocated(By locator)
      * This condition is used to instruct a command to wait until the element becomes visible.
