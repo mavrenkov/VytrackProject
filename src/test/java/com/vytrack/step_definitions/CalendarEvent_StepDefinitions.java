@@ -153,4 +153,27 @@ public class CalendarEvent_StepDefinitions {
     public void selectAfterOccurrencesAsAnEndsOption(int numberOfOccurrences) {
         calendarEvent.setOccurrences(numberOfOccurrences);
     }
+
+    //TC11
+
+    @And("select By {string} {int} {int} as an Ends option")
+    public void selectByAsAnEndsOption(String month, int day, int year) {
+        calendarEvent.setEndsByDate(month, day, year);
+    }
+
+    //TC12
+    @And("select Weekly options as a Repeat option")
+    public void selectOptionsAsARepeatOption() {
+        calendarEvent.selectRepeatsWeekly();
+    }
+
+    @And("select {string} and {string} options as a Repeat On options")
+    public void selectAndOptionsAsARepeatOnOptions(String str1, String str2) {
+        calendarEvent.selectRepeatsOnWeekDays(str1, str2);
+    }
+
+    @Then("{string} and {string} options are selected")
+    public void andOptionsAreSelected(String str1, String str2) {
+        Assert.assertTrue(calendarEvent.repeatsOnWeekdaysAssertion(str1, str2));
+    }
 }

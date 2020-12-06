@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CalendarEvent extends BasePage {
 
@@ -68,8 +69,16 @@ public class CalendarEvent extends BasePage {
     private WebElement endsNeverRadioButton;
     @FindBy(xpath = "//span[text() = 'After']/preceding-sibling::input[@type='radio']")
     private WebElement endsAfterRadioButton;
+    @FindBy(xpath = "//span[text() = 'By']/preceding-sibling::input[@type='radio']")
+    private WebElement endsByRadioButton;
     @FindBy(xpath = "//span[text() = 'After']/following-sibling::input[@type='text']")
     private WebElement occurrencesInputField;
+    @FindBy(xpath = "//input[@class='datepicker-input hasDatepicker']")
+    private WebElement chooseDateInputField;
+    @FindBy(xpath = "//select[@class='ui-datepicker-year']")
+    private WebElement chooseYearDropdown;
+    @FindBy(xpath = "//select[@class='ui-datepicker-month']")
+    private WebElement chooseMonthDropdown;
     @FindBy(xpath = "//div[@class='control-group recurrence-summary alert-info']/div/label")
     private WebElement summary;
     @FindBy(xpath = "//div[@data-name='recurrence-summary']/div/span")
@@ -82,6 +91,8 @@ public class CalendarEvent extends BasePage {
     protected String threeDotOptionsXpath = "//ul[@class='nav nav-pills icons-holder launchers-list']//a[@title='%s']";
     protected String calEventsGridFields = "//span[.='%s']";
     protected String startTimeOption = "(//li[. = '%s'])[1]";
+    protected String chooseDateInTable = "//tbody/tr/td[.='%s']";
+    protected String repeatOnWeekDayCheckbox = "//input[@value='%s']";
 
 
     //TC1
@@ -271,4 +282,38 @@ public class CalendarEvent extends BasePage {
         String occurrencesString = "" + occurrences;
         BrowserUtils.enterTextAndClickEnter(occurrencesInputField, occurrencesString);
     }
+
+    //TC11
+    public void setEndsByDate(String month, int day, int year){
+        BrowserUtils.clickOnElement(endsByRadioButton);
+        BrowserUtils.clickOnElement(chooseDateInputField);
+
+        Select selectYear = new Select(chooseYearDropdown);
+        String yearString = "" + year;
+        selectYear.selectByVisibleText(yearString);
+
+        Select selectMonth = new Select(chooseMonthDropdown);
+        selectMonth.selectByVisibleText(month);
+
+        String dayString = "" + day;
+        BrowserUtils.clickOnElement(driver.findElement(By.xpath(String.format(chooseDateInTable, dayString))));
+
+    }
+
+    //TC12
+    public void selectRepeatsWeekly(){
+        Select selectRepeats = new Select(repeatsDropdown);
+        selectRepeats.selectByVisibleText("Weekly");
+    }
+    public void selectRepeatsOnWeekDays(String str1, String str2){
+        BrowserUtils.clickOnElement(driver.findElement(By.xpath(String.format(repeatOnWeekDayCheckbox, str1.toLowerCase()))));
+        BrowserUtils.clickOnElement(driver.findElement(By.xpath(String.format(repeatOnWeekDayCheckbox, str2.toLowerCase()))));
+    }
+    public boolean repeatsOnWeekdaysAssertion(String str1, String str2){
+        WebElement checkbox1 = driver.findElement(By.xpath(String.format(repeatOnWeekDayCheckbox, str1.toLowerCase())));
+        WebElement checkbox2 = driver.findElement(By.xpath(String.format(repeatOnWeekDayCheckbox, str2.toLowerCase())));
+        return checkbox1.isDisplayed() && checkbox2.isDisplayed();
+    }
+
+
 }
