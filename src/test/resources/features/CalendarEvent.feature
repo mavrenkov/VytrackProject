@@ -82,4 +82,18 @@ Feature: Calendar Events test cases
     And select After 10 occurrences as an Ends option
     Then following summary message is displayed: "Summary: Daily every 1 day, end after 10 occurrences"
 
+  @TC11
+  Scenario: TC11 Summary message verification when Ends By date is selected
+    When user clicks on Create Calendar Event button
+    And select Repeat checkbox
+    And select By "Nov" 18 2021 as an Ends option
+    Then following summary message is displayed: "Summary: Daily every 1 day, end by Nov 18, 2021"
 
+  @TC12
+  Scenario: TC12 Summary message verification when Repeats On specific weekdays selected
+    When user clicks on Create Calendar Event button
+    And select Repeat checkbox
+    And select Weekly options as a Repeat option
+    And select "Monday" and "Friday" options as a Repeat On options
+    Then "Monday" and "Friday" options are selected
+    Then following summary message is displayed: "Summary: Weekly every 1 week on Monday, Friday"
