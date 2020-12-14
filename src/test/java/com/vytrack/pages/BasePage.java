@@ -28,8 +28,6 @@ public abstract class BasePage {
     protected WebDriver driver = Driver.getDriver();
     protected WebDriverWait wait = new WebDriverWait(driver, 25);
 
-
-
     //Fluent wait declaration
 
     Wait<WebDriver> fluentWait = new FluentWait<>(driver)
@@ -57,12 +55,6 @@ public abstract class BasePage {
       //  BrowserUtils.wait(1);
 
  */
-
-
-
-
-
-
 
 
 }
