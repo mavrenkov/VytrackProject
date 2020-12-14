@@ -21,7 +21,6 @@ public class CalendarEvent_StepDefinitions {
     @Given("user navigates to {string} and {string}")
     public void user_navigates_to_and(String string, String string2) {
         calendarEvent.navigationGlobal(string,string2);
-        //calendarEvent.navigationSubGlobal(string2);
     }
 
     //TC1
@@ -35,7 +34,7 @@ public class CalendarEvent_StepDefinitions {
     }
     @Then("{string}, {string} and {string} options are available")
     public void and_options_are_available(String string, String string2, String string3) {
-            calendarEvent.threeDotButtonsConfirmation(string, string2, string3);
+          Assert.assertTrue(  calendarEvent.threeDotButtonsConfirmation(string, string2, string3));
     }
 
     //TC2
