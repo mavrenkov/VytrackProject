@@ -35,7 +35,7 @@ public class CalendarEvent_StepDefinitions {
     }
     @Then("{string}, {string} and {string} options are available")
     public void and_options_are_available(String string, String string2, String string3) {
-            calendarEvent.threeDotButtonsConfirmation(string, string2, string3);
+          Assert.assertTrue(  calendarEvent.threeDotButtonsConfirmation(string, string2, string3));
     }
 
     //TC2

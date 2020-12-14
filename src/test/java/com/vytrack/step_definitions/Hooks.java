@@ -1,5 +1,6 @@
 package com.vytrack.step_definitions;
 
+import com.vytrack.pages.CalendarEvent;
 import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.Driver;
 import io.cucumber.java.After;
@@ -14,7 +15,7 @@ public class Hooks {
         System.out.println(scenario.getSourceTagNames());
         System.out.println("Starting Automation");
         Driver.getDriver().manage().window().maximize();
-        Driver.getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        Driver.getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS).pageLoadTimeout(40, TimeUnit.SECONDS);
     }
 
     @After

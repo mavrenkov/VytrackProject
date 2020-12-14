@@ -108,7 +108,7 @@ public class CalendarEvent extends BasePage {
         BrowserUtils.clickOnElement(updateFilterButton);
     }
     public boolean threeDotButtonsConfirmation(String view, String edit, String delete){
-
+        waitForLoad();
         wait.until(ExpectedConditions.visibilityOf(threeDotHover));
         Actions action = new Actions(driver);
         action.moveToElement(threeDotHover).perform();
@@ -146,6 +146,7 @@ public class CalendarEvent extends BasePage {
         return saveAndCloseDropdownOptions;
     }
     public void createCalendarEventButtonClick(){
+        waitForLoad();
         wait.until(ExpectedConditions.visibilityOf(createCalendarEventButton));
         BrowserUtils.clickOnElement(createCalendarEventButton);
     }
@@ -156,6 +157,7 @@ public class CalendarEvent extends BasePage {
 
     //TC4
     public void cancelButtonClick(){
+        waitForLoad();
         BrowserUtils.clickOnElement(cancelButton);
     }
     public boolean allCalendarEventsPageSubtitleAssertion(){
@@ -209,7 +211,8 @@ public class CalendarEvent extends BasePage {
 
     //TC7
     public void allDayEventCheckboxClick(){
-        BrowserUtils.clickOnElement(allDayEventCheckbox);
+       waitForLoad();
+       BrowserUtils.clickOnElement(allDayEventCheckbox);
     }
     public boolean allDayEventCheckboxAssertion(){
         return allDayEventCheckbox.isSelected();
