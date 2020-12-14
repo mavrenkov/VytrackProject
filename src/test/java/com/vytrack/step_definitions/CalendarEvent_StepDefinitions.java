@@ -21,7 +21,6 @@ public class CalendarEvent_StepDefinitions {
     @Given("user navigates to {string} and {string}")
     public void user_navigates_to_and(String string, String string2) {
         calendarEvent.navigationGlobal(string,string2);
-        //calendarEvent.navigationSubGlobal(string2);
     }
 
     //TC1
