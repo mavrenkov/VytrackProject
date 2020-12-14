@@ -1,21 +1,14 @@
 package com.vytrack.pages;
 
-import com.vytrack.utilities.BrowserUtils;
-import com.vytrack.utilities.Driver;
+import com.vytrack.utilities.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import java.util.*;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 public abstract class BasePage {
-
     @FindBy(css = "loader-mask")
     protected List<WebElement> mask;
 
@@ -28,8 +21,6 @@ public abstract class BasePage {
     protected WebDriver driver = Driver.getDriver();
     protected WebDriverWait wait = new WebDriverWait(driver, 25);
 
-
-
     //Fluent wait declaration
 
     Wait<WebDriver> fluentWait = new FluentWait<>(driver)
@@ -40,29 +31,20 @@ public abstract class BasePage {
             .ignoring(ElementNotInteractableException.class)
             ;
 
+    public static void waitForLoad(){
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),10);
+        By mask =By.xpath("//body/div[4]");
+        wait.until(ExpectedConditions.presenceOfElementLocated(mask));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(mask));
+    }
+
     public void navigationGlobal(String globalMenu,String globalSubMenu) {
-          WebElement globalClick = fluentWait.until(driver -> driver.findElement(By.xpath(String.format(globalMenuXpath, globalMenu))));
-         WebElement subGlobalClick = fluentWait.until(driver -> driver.findElement(By.xpath(String.format(globalSubMenuXpath, globalSubMenu))));
+        waitForLoad();
+        WebElement globalClick = fluentWait.until(driver -> driver.findElement(By.xpath(String.format(globalMenuXpath, globalMenu))));
+        WebElement subGlobalClick = fluentWait.until(driver -> driver.findElement(By.xpath(String.format(globalSubMenuXpath, globalSubMenu))));
         BrowserUtils.clickWithJS(globalClick);
         BrowserUtils.clickWithJS(subGlobalClick);
     }
-
-/*
-    public void navigationGlobal(String globalMenu, String globalSubMenu){
-      // wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
-      //  BrowserUtils.wait(2);
-        BrowserUtils.clickWithJS( driver.findElement(By.xpath(String.format(globalMenuXpath,globalMenu))));
-      // wait.until(ExpectedConditions.invisibilityOfAllElements(mask));
-        BrowserUtils.clickWithJS( driver.findElement(By.xpath(String.format(globalSubMenuXpath,globalSubMenu))));
-      //  BrowserUtils.wait(1);
-
- */
-
-
-
-
-
-
 
 
 }
