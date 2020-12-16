@@ -1,15 +1,12 @@
 package com.vytrack.step_definitions;
 
 import com.vytrack.pages.CalendarEvent;
-import com.vytrack.utilities.BrowserUtils;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
 
 import java.util.List;
 
@@ -126,21 +123,21 @@ public class CalendarEvent_StepDefinitions {
     }
     @Then("{string} option is selected by default and in Repeats dropdown")
     public void optionIsSelectedByDefaultAndInRepeatsDropdown(String str) {
-        calendarEvent.repeatsDefaultOptionAssertion(str);
+        Assert.assertTrue(calendarEvent.repeatsDefaultOptionAssertion(str));
     }
     @Then("other following options are available in Repeats dropdown")
     public void otherFollowingOptionsAreAvailableInRepeatsDropdown(List<String> options) {
-        calendarEvent.repeatsDropdownAssertion(options);
+        Assert.assertTrue(calendarEvent.repeatsDropdownAssertion(options));
     }
 
     //TC9
     @Then("Repeat Every radio button is selected")
     public void repeatEveryRadioButtonIsSelected() {
-        calendarEvent.getRepeatEveryRadioButton().isSelected();
+        Assert.assertTrue(calendarEvent.getRepeatEveryRadioButton().isSelected());
     }
     @Then("Never radio button is selected as an Ends option")
     public void neverRadioButtonIsSelectedAsAnEndsOption() {
-        calendarEvent.getEndsNeverRadioButton().isSelected();
+        Assert.assertTrue(calendarEvent.getEndsNeverRadioButton().isSelected());
         
     }
     @Then("following summary message is displayed: {string}")
