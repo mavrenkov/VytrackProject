@@ -22,7 +22,6 @@ public class Driver {
     public synchronized static WebDriver getDriver(){
         if (driverPool.get() == null) {
             //it will make sure that 2 threats cannot access this piece of code
-            synchronized (Driver.class) {
 
                 String browser = ConfigurationReader.getProperty("browser");
                 switch (browser) {
@@ -37,7 +36,7 @@ public class Driver {
                     case "remote_chrome":
                         try{
 
-                        URL url = new URL("http://35.175.224.194:4444/wd/hub");
+                        URL url = new URL("http://54.157.186.89:4444/wd/hub");
 
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName(BrowserType.CHROME);
@@ -49,7 +48,7 @@ public class Driver {
                         break;
                     case "remote_firefox":
                         try{
-                            URL url = new URL("http://35.175.224.194:4444/wd/hub");
+                            URL url = new URL("http://ec2-3-82-38-154.compute-1.amazonaws.com:4444/wd/hub");
 
                             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                             desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
@@ -63,7 +62,7 @@ public class Driver {
                         throw new RuntimeException("Wrong Browser name!");
                 }
             }
-        }
+
         return driverPool.get();
     }
 
