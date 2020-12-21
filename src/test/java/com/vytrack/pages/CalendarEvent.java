@@ -1,25 +1,19 @@
 package com.vytrack.pages;
 
 import com.vytrack.utilities.BrowserUtils;
-import io.cucumber.java.ro.Si;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 
-import javax.swing.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class CalendarEvent extends BasePage {
 
@@ -183,16 +177,21 @@ public class CalendarEvent extends BasePage {
     }
 
     public int getHourFromTheString(String string){
-
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date current = null;
         try {
             current = date.parse(string);
         } catch (ParseException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        int hour = current.getHours();
-        return hour;
+        if (current != null) {
+            calendar.setTime(current);
+        }
+
+        return calendar.get(Calendar.HOUR_OF_DAY);
+
     }
 
     //TC6
@@ -227,6 +226,9 @@ public class CalendarEvent extends BasePage {
 
     //TC8
     public void repeatCheckboxClick(){
+        waitForLoad();
+        wait.until(ExpectedConditions.visibilityOf(repeatCheckbox));
+        wait.until(ExpectedConditions.elementToBeClickable(repeatCheckbox));
         BrowserUtils.clickOnElement(repeatCheckbox);
     }
     public WebElement getRepeatCheckbox(){
@@ -243,7 +245,7 @@ public class CalendarEvent extends BasePage {
         Select repeats = new Select(repeatsDropdown);
 
         List<WebElement> actualOptions = repeats.getOptions();
-        List<String> actualStringOptions = new ArrayList<String>();
+        List<String> actualStringOptions = new ArrayList<>();
         for (WebElement each : actualOptions){
             if(!each.getText().equalsIgnoreCase("Daily")){
                 String currentOptionText = each.getText();
